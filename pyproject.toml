@@ -1,0 +1,21 @@
+[project]
+name = "ai-agent-run"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "duckduckgo-search>=8.0.1",
+    "faiss-cpu>=1.10.0",
+    "huggingface-hub[hf-xet]>=0.30.2",
+    "langchain>=0.3.23",
+    "langchain-community>=0.3.21",
+    "langchain-huggingface>=0.1.2",
+    "langchain-qdrant>=0.2.0",
+    "litellm>=1.67.0.post1",
+    "markdown>=3.8",
+    "openai-agents>=0.0.12",
+    "qdrant-client>=1.14.1",
+    "sentence-transformers>=4.1.0",
+    "unstructured>=0.17.2",
+]
