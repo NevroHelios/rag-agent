@@ -10,7 +10,7 @@ st.title("Hello from rag-institute!")
 with st.sidebar:
     st.header("Additional Context")
     st.info("Add any additional context or information that might help the model answer questions more accurately.")
-    st.warning("Currently supports only vector retrieval for additional context.")
+    st.warning("Currently supports only vector retrieval for additional context as building KG takes time.")
     uploaded_file = st.file_uploader(label="Upload a file", type=["pdf"]) # TODO: add more file types
 
 chain = build_chain()

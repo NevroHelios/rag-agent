@@ -21,6 +21,8 @@ dependencies = [
     "matplotlib>=3.10.3",
     "neo4j>=5.28.1",
     "pip-system-certs>=5.2",
+    "plotly>=6.2.0",
     "pymupdf>=1.26.3",
     "streamlit>=1.46.1",
+    "yfiles-jupyter-graphs>=1.10.7",
 ]
