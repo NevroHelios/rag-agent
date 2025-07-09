@@ -98,10 +98,10 @@ cd rag-agent
 
 ```bash
 # Install system certificates (required for Neo4j connection)
-pip install pip-system-certs
+uv add pip-system-certs
 
 # Install project dependencies
-pip install -e .
+uv sync
 ```
 
 ### 3. Setup Ollama Models
@@ -129,12 +129,12 @@ NEO4J_INSTANCE_ID=your_instance_id  # for cloud instances
 OPENAI_API_KEY=your_openai_key
 ```
 
-### 5. Initialize Database
+<!-- ### 5. Initialize Database
 
 ```bash
 # Run the test script to verify setup
 python test.py
-```
+``` -->
 
 ---
 
@@ -145,7 +145,7 @@ python test.py
 Launch the Streamlit application:
 
 ```bash
-streamlit run main.py
+uv run streamlit run main.py
 ```
 
 Navigate to `http://localhost:8501` and:
@@ -263,7 +263,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Neo4j Connection Issues**
 ```bash
 # Install system certificates
-pip install pip-system-certs
+uv add pip-system-certs
 ```
 
 **Ollama Model Not Found**
