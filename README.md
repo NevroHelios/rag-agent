@@ -62,7 +62,7 @@ graph TB
 ```
 
 ### Knowledge-graph
-<img src="static/image.png"/>
+<img src="static/visualisation.png"/>
 
 
 ### Core Components

@@ -10,4 +10,4 @@ st.title("Welcome to RAG Institute!")
 st.write("Please select a page from the sidebar to get started.")
 
 
-st.image("static/image.png", use_column_width=True)
+st.image("static/visualisation.png", use_column_width=True)

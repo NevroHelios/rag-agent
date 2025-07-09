@@ -1,7 +1,7 @@
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_neo4j.vectorstores.neo4j_vector import remove_lucene_chars
 from langchain_community.vectorstores import Neo4jVector
-
+from typing import List
 
 
 class GraphRetriever:
@@ -25,7 +25,9 @@ class GraphRetriever:
         entities = self.entity_chain.invoke({"question": question}) 
         seen = set()
         for entity_type, value in entities.dict().items():
-            value = value.strip()
+            if not value:
+                continue
+            value = value[0].strip()
             if not value or value in seen:
                 continue  # Skip empty fields
             seen.add(value)
@@ -79,57 +81,38 @@ class GraphRetriever:
 
 
 class Entities(BaseModel):
-    """Identifying information about entities in the text."""
+    """A generalized model for identifying key entities in various documents,
+    such as research papers and academic syllabi."""
 
-    address: str = Field(description="An address, such as a street address or a location.")
-    attribute: str = Field(description="An attribute or characteristic of an entity.")
-    author: str = Field(description="A single author of the paper or a cited work.")
-    authors: str = Field(description="List of authors associated with the paper.")
-    chunk: str = Field(description="A section or meaningful unit of the text.")
-    company: str = Field(description="A company or corporate entity mentioned in the text.")
-    concept: str = Field(description="An abstract idea, principle, or domain-specific notion.")
-    curve: str = Field(description="A graphical representation or mathematical curve described in the paper.")
-    cycle: str = Field(description="A repeated process or time cycle referenced in the study.")
-    data: str = Field(description="Specific data values, raw or processed, mentioned in the paper.")
-    dataset: str = Field(description="A collection of data used, referenced, or produced in the study.")
-    department: str = Field(description="A specific department within an organization or institution.")
-    distribution: str = Field(description="The statistical or spatial distribution of data or variables.")
-    document: str = Field(description="A referenced or related document, article, or paper.")
-    electric_current: str = Field(description="Mentions of electric current or related electrical measurements.")
-    entity: str = Field(description="A general named entity not otherwise categorized.")
-    environment: str = Field(description="The environmental context or conditions mentioned.")
-    equation: str = Field(description="A mathematical equation or formula stated in the text.")
-    event: str = Field(description="An occurrence or happening described in the context of the study.")
-    figure: str = Field(description="A referenced figure, chart, or diagram within the paper.")
-    function: str = Field(description="A mathematical or computational function described or used.")
-    group: str = Field(description="A collection of people, items, or elements considered together.")
-    index: str = Field(description="An index value or indexing term used in the paper.")
-    instrument: str = Field(description="A scientific or technical instrument used in data collection.")
-    journal: str = Field(description="The journal where the paper or referenced articles are published.")
-    location: str = Field(description="A geographic location or place mentioned.")
-    magnetometer: str = Field(description="A specific instrument measuring magnetic fields.")
-    measurement: str = Field(description="The act or result of measuring a quantity.")
-    number: str = Field(description="A numerical value mentioned in the text.")
-    orcid_id: str = Field(description="The ORCID identifier for an author.")
-    organization: str = Field(description="An organization or institution involved or referenced.")
-    person: str = Field(description="A named individual mentioned in the text.")
-    phenomenon: str = Field(description="A scientific or observable phenomenon discussed.")
-    planet: str = Field(description="A planet mentioned in the astronomical or environmental context.")
-    publication: str = Field(description="A published work referenced or discussed.")
-    quantity: str = Field(description="A measurable amount or value.")
-    reference: str = Field(description="A citation or bibliographic reference.")
-    region: str = Field(description="A specific area or region, geographic or conceptual.")
-    resource: str = Field(description="Any resource—material, computational, or informational—mentioned.")
-    satellite: str = Field(description="A satellite referenced in context to data collection or observation.")
-    spacecraft: str = Field(description="A spacecraft or probe mentioned in the study.")
-    state: str = Field(description="A physical or logical state or condition of a system or material.")
-    structure: str = Field(description="A physical, logical, or organizational structure.")
-    system: str = Field(description="A system—technical, natural, or conceptual—described in the paper.")
-    thresholds: str = Field(description="Threshold values or limits defined or measured.")
-    time_unit: str = Field(description="Units of time used in measurements or descriptions.")
-    tool: str = Field(description="A software or hardware tool used in the analysis or study.")
-    unit_of_measurement: str = Field(description="A standardized unit for measuring variables.")
-    value: str = Field(description="A specific value, usually numerical or categorical, relevant to the context.")
-    variable: str = Field(description="A changing or measured quantity in the study.")
-    website: str = Field(description="A URL or web-based resource referenced.")
-    year: str = Field(description="A specific year mentioned in the paper.")
+    person: List[str] = Field(
+        description="Names of individuals, such as authors, professors, or cited researchers.",
+        default_factory=list
+    )
+    organization: List[str] = Field(
+        description="Organizations, including universities, departments, research institutes, or companies.",
+        default_factory=list
+    )
+    topic: List[str] = Field(
+        description="Key subjects, concepts, or topics discussed in the text.",
+        default_factory=list
+    )
+    publication: List[str] = Field(
+        description="Cited or mentioned publications, such as papers, books, or articles.",
+        default_factory=list
+    )
+    location: List[str] = Field(
+        description="Geographical or institutional locations mentioned.",
+        default_factory=list
+    )
+    date: List[str] = Field(
+        description="Specific dates or years relevant to the document's context.",
+        default_factory=list
+    )
+    course: List[str] = Field(
+        description="The names or codes of academic courses, if mentioned.",
+        default_factory=list
+    )
+    assessment: List[str] = Field(
+        description="Methods of evaluation, such as exams, quizzes, projects, or assignments.",
+        default_factory=list
+    )
